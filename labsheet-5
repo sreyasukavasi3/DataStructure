@@ -1,1 +1,51 @@
 
+
+
+public class Stack {
+	Node top = null;
+	void push(char x)
+	{
+		Node n = new Node(x);
+		if(top==null)
+		{
+			top=n;
+		}
+		else {
+			n.next=top;
+			top=n;
+		}
+			
+	}
+	boolean isEmpty()
+	{
+		if(top==null)
+			return true;
+		else
+			return false;
+	}
+	char pop()
+	{
+		if(isEmpty())
+		{
+			System.out.println("Stack empty");
+			return ' ';
+		}
+		else
+		{
+			char x = top.ch;
+			top=top.next;
+			return x;
+		}
+	}
+	char peek()
+	{
+		if(isEmpty())
+		{
+			System.out.println("Stack empty");
+			return ' ';
+		}	
+		else
+			return top.ch;
+	}
+	
+}
