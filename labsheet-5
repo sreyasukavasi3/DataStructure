@@ -49,3 +49,318 @@ public class Stack {
 	}
 	
 }
+
+
+
+
+
+
+
+public class stack {
+   int[] d;
+    int t;
+    stack()
+    {
+       d=new int[100];
+       t=-1;
+    }
+    void push(int n)
+    {
+  	  if((t+1)!=d.length)
+  	  d[++t]=n;
+  	  else
+  	  {
+  		  System.out.println("can't push");
+  	  }
+    }
+   void pop()
+    {
+  	  if(t!=-1)
+  	  {
+  		  
+  		  t--;
+  		
+  	  }
+  	  else
+  	  {
+  		  System.out.println("error");
+  	  }
+    }
+    int top(){
+    	if(t!=-1){
+    		return (d[t]);
+    	}
+    	else{
+    		System.out.println("error");
+    		return -1;
+    	}
+    }
+}
+
+
+
+
+
+
+
+public class Node {
+	char ch;
+	Node next;
+	Node(char x)
+	{
+		ch=x;
+		next=null;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class InfixToPostfix {
+	public int Prec(char x)
+	{
+		switch(x)
+		{
+		case '+':return 1;
+		case '-':
+			return 1;
+		case '*':
+		case '/':
+			return 2;
+		case '^':
+			return 3;
+		default:
+			return -1;
+		}
+	}
+	public String InfixToPost(String exp)
+	{
+		Stack st = new Stack();
+		boolean ex=false;
+		String result ="";
+		exp=exp.replaceAll(" ","");
+		for(int i=0;i<exp.length();i++)
+		{
+			char ch = exp.charAt(i);
+			if(Character.isLetterOrDigit(ch))
+				result+=ch;
+			else if(ch=='(')
+				st.push(ch);
+			else if(ch==')')
+			{
+				while( ! st.isEmpty() )
+				{
+					if(st.peek()=='(')
+					{
+						ex=true;
+						break;
+					}
+					result=result+st.pop();
+				}
+				if(ex==true) st.pop();
+				else {
+					System.out.println("expression is invalid");
+					return " "; 
+				}
+				
+			}
+			else
+			{
+				while(Prec(ch)<Prec(st.peek())&&!st.isEmpty())
+				{
+					result+=st.pop();
+				}
+				st.push(ch);
+			}
+		}
+		while(!st.isEmpty())
+			result+=st.pop();
+		return result;
+	}
+
+}
+
+
+
+
+
+
+
+import java.util.*;
+public class driverb {
+	public static void main(String[] args){
+		Scanner s= new Scanner(System.in);
+		String sre=s.next();
+		Bracket ass = new Bracket();
+		int c = 0;
+		for(int i=0;i<sre.length();i++){
+    		if(i==0){
+    			ass.push(sre.charAt(i));
+    		}else{
+        		if(sre.charAt(i)==')' && ass.top()=='('){
+        			ass.pop();
+        		}
+       			else if(sre.charAt(i)==']' && ass.top()=='['){
+       				ass.pop();
+       			}
+       			else if(sre.charAt(i)=='}' && ass.top()=='{'){
+       				ass.pop();
+       			}
+       			else{
+       				ass.push(sre.charAt(i));
+       			}
+    		}
+    	}
+		if(ass.t==-1){
+			System.out.println("Balanced");
+		}else{
+			System.out.println("Not Balanced");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+import java.util.*;
+import java.lang.Math;
+public class driver {
+
+	public static void main(String[] args) {
+                Scanner s=new Scanner(System.in);
+                String d=s.nextLine();
+                //System.out.println(d);
+                stack ery=new stack();
+                String aks="\0";
+                for(int i=0;i<d.length();i++)
+                {
+                	int p=d.charAt(i);
+                	if(p>=48&&p<58)
+                	{
+                		aks=aks+d.charAt(i);
+                	}
+                	if(p==32)
+                	{
+                		int gh=0;
+                		int y=aks.length();
+                		for(int j=1;j<aks.length();j++)
+                		{
+                			int ghj=aks.charAt(j)-48;
+                			//System.out.println(ghj);
+                			
+                			ghj=(int)(ghj*(Math.pow(10,y-j-1)));
+                			gh=gh+ghj;
+                		}
+                		if(aks.length()!=1)
+                		ery.push(gh);
+                		aks="\0";
+                	}
+                	if(p==43)
+                	{
+                		int a=ery.top();
+                		ery.pop();
+                		//System.out.println(a);
+                		int b=ery.top();
+                		//System.out.println(b);
+                		ery.pop();
+                		a=a+b;
+                		//System.out.println(a);
+                		ery.push(a);
+                	}
+                	if(p==45)
+                	{
+                		int a=ery.top();
+                		ery.pop();
+                		int b=ery.top();
+                		ery.pop();
+                		a=b-a;
+                		ery.push(a);
+                		
+                	}
+                	if(p==42)
+                	{
+                		int a=ery.top();
+                		ery.pop();
+                		int b=ery.top();
+                		ery.pop();
+                		a=a*b;
+                		ery.push(a);
+                
+                	}
+                	if(p==47)
+                	{
+                		int a=ery.top();
+                		ery.pop();
+                		int b=ery.top();
+                		ery.pop();
+                		a=b/a;
+                		ery.push(a);
+                
+                	}
+                }
+                System.out.println(ery.top());
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class Bracket {
+    char[] d;
+    int t;
+    Bracket()
+    {
+       d=new char[100];
+       t=-1;
+    }
+    void push(char n)
+    {
+  	  if((t+1)!=d.length)
+  	  d[++t]=n;
+  	  else
+  	  {
+  		  System.out.println("can't push");
+  	  }
+    }
+    void pop()
+    {
+  	  if(t!=-1)
+  	  {
+  		  t--;
+  	  }
+  	  else
+  	  {
+  		  System.out.println("stack empty");
+  	  }
+    }
+    char top(){
+    	if(t!=-1){
+    		return (d[t]);
+    	}
+    	else{
+    		return '$';
+    	}
+    }
+}
